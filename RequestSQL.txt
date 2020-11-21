@@ -1,0 +1,2 @@
+select from company_table where shortName = dev
+select from comapny_table where fullName = tut.by
