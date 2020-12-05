@@ -29,17 +29,12 @@ public class Main {
 
             String delimeter = ";";
 
-            List<List<String>> stringListD = readUsingFileReader(fileName, delimeter);
+            List<Company> companyList = readUsingFileReader(fileName, delimeter);
 
             System.out.print("\nView a list of companies?\n1 - See\n2 - Skip\nEnter: ");
             int variant = in.nextInt();
             if (variant == 1) {
-                for (int i = 0; i < stringListD.size(); ++i) {
-                    System.out.print("\n" + i + ")");
-                    for (int j = 0; j < stringListD.get(i).size(); ++j) {
-                        System.out.print(stringListD.get(i).get(j) + "  ");
-                    }
-                }
+                printList(companyList);
             }
 
             //System.out.print("End");
@@ -49,7 +44,6 @@ public class Main {
 
             // printToFileData();
 
-            List<Company> companyList = goToListCompany(stringListD);
 
             System.out.println("\n1 - Use SQL request\n2 - Use list of companies");
             System.out.print("Enter: ");
@@ -115,12 +109,7 @@ public class Main {
                         }
 
                         case 6 -> {
-                            for (int i = 0; i < stringListD.size(); ++i) {
-                                System.out.print("\n" + i + ")");
-                                for (int j = 0; j < stringListD.get(i).size(); ++j) {
-                                    System.out.print(stringListD.get(i).get(j) + "  ");
-                                }
-                            }
+                           printList(companyList);
                         }
                     }
                 }

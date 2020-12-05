@@ -38,7 +38,31 @@ public class Company {
         pathURL = pathURLC;
     }
 
-    public static List<List<String>> readUsingFileReader(String fileName, String delimeter) throws IOException {
+    public static List<Company> readUsingFileReader(String fileName, String delimeter) throws IOException {
+        File file = new File(fileName);
+        FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);
+        String line;
+        List<String> stringList = new ArrayList();
+        while ((line = br.readLine()) != null) {
+            stringList.add(line);
+        }
+        br.close();
+        fr.close();
+        List<List<String>> stringListD = new ArrayList();
+        for (int i = 0; i < stringList.size(); ++i) {
+            stringListD.add(Arrays.asList(stringList.get(i).split(delimeter)));
+        }
+        List<Company> companyList = new ArrayList<>();
+        for (int i = 0; i < stringListD.size(); ++i) {
+            Company company = new Company(stringListD.get(i).get(0), stringListD.get(i).get(1), Integer.parseInt(stringListD.get(i).get(2)), stringListD.get(i).get(3), Integer.parseInt(stringListD.get(i).get(4)), Integer.parseInt(stringListD.get(i).get(5)), stringListD.get(i).get(6),
+                    Long.parseLong(stringListD.get(i).get(7)), stringListD.get(i).get(8), stringListD.get(i).get(9), stringListD.get(i).get(10), stringListD.get(i).get(11));
+            companyList.add(company);
+        }
+        return companyList;
+    }
+
+    public static List<List <String>> readUsingFileSQL(String fileName, String delimeter) throws IOException {
         File file = new File(fileName);
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
@@ -56,14 +80,11 @@ public class Company {
         return stringListD;
     }
 
-    public static List<Company> goToListCompany(List<List<String>> listStringD) throws IOException {
-        List<Company> companyList = new ArrayList<>();
-        for (int i = 0; i < listStringD.size(); ++i) {
-            Company company = new Company(listStringD.get(i).get(0), listStringD.get(i).get(1), Integer.parseInt(listStringD.get(i).get(2)), listStringD.get(i).get(3), Integer.parseInt(listStringD.get(i).get(4)), Integer.parseInt(listStringD.get(i).get(5)), listStringD.get(i).get(6),
-                    Long.parseLong(listStringD.get(i).get(7)), listStringD.get(i).get(8), listStringD.get(i).get(9), listStringD.get(i).get(10), listStringD.get(i).get(11));
-            companyList.add(company);
+
+    public static void printList(List <Company> companyList) {
+        for (Company i: companyList) {
+            System.out.println("Company");
         }
-        return companyList;
     }
 
     public static void findCompany(List<Company> companyList, String company) {
@@ -123,7 +144,7 @@ public class Company {
     }
 
     public static void findByRequestSQL(List<Company> companyList, String filename) throws IOException {
-        List<List<String>> stringListD = readUsingFileReader(filename, " ");
+        List<List<String>> stringListD = readUsingFileSQL(filename, " ");
 
         int counter = 0;
 
